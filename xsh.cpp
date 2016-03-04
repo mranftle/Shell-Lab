@@ -104,8 +104,8 @@ int HandleInput(char* line, BasicTasks* bt, InternalCommands* ic)
      }
 	 else if(args.at(0) =="history")
      {
-		 ic->historyCommand();
          ic->addCmdToHistory(preservedLine);
+		 ic->historyCommand();
      } 
 	 else if(args.at(0) =="export")
 	 {
