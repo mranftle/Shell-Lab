@@ -99,37 +99,6 @@ void InternalCommands::historyCommand()
   
 }
 
-/*
- * getHistoryCommand(int n)
- * returns item n from history list
- *
- */
-
-string getHistoryCommand(int n)
-{
-	//variable
-	int index;
-	//if negative, get length - n 
-	if(index < 0)
-	{
-		index = historyList.length() + n;
-	}
-	//else just return nth element
-	else
-	{
-		index = n;
-	}
-	
-	if(index < historyList.length() && index >= 0)
-	{
-		return historyList.at(index);
-	}
-	else //else the numbers won't be correct, so return blank string
-	{
-		return "";
-	}
-}
-
 /**
  *  addCmdToHistory(char * cmd);
  * 	This function adds the most recent command to the historyList.
@@ -214,4 +183,19 @@ string getHistoryCommand(int n)
      }
  }
 
-
+/**
+ * chdir(vector<string> args)
+ * 	chdir W: change the current directory
+ */
+void InternalCommands::chdirCommand(vector<string> args)
+{
+	if (args.size() != 2) {
+		cout << "usage: chdir W"<< endl;
+	}
+	else {
+		if (chdir(args.at(1)) != 0) {
+			cout << "error changing directory" << endl;
+			//TODO: throw error or have this method not be void,return non-0 value?
+		}
+	}
+}

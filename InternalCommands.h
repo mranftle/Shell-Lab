@@ -34,8 +34,6 @@ class InternalCommands
   // rmvlastCmd() removes the oldest command.
   
   void  historyCommand();
-  //Get command from history vector
-  string getHistoryCommand(int n);
   //Add the command to the history vector.
   void  addCmdToHistory(char * cmd);
 
@@ -49,8 +47,8 @@ class InternalCommands
   
   //environ: print out all set environment variables
   void environCmd();
-
-
+  
+  void chdirCommand(vector<string> args);
 
   private:
   vector <string> historyList;
