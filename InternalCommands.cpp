@@ -214,4 +214,17 @@ string getHistoryCommand(int n)
      }
  }
 
-
+/**
+ * chdir(vector<string> args)
+ * 	chdir W: change the current directory
+ */
+int InternalCommands::chdirCommand(vector<string> args)
+{
+	if (args.size() != 2) {
+		cout << "usage: chdir W"<< endl;
+		return -2; //-2 for incorrect usage
+	}
+	else {
+		return (chdir(args.at(1))); //returns 0 for success, -1 for failure
+	}
+}
