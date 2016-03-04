@@ -69,6 +69,9 @@ void xshLoop(void)
      {
        ic.echoCommand(preservedLine);
      
+     }else if(args.at(0)=="show")
+       ic.showCommand(args);
+     {
      }else if(args.at(0) =="history")
      {
         ic.historyCommand();

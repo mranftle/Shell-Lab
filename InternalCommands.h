@@ -20,6 +20,9 @@ class InternalCommands
    //clr: Clear the screen and display a new command line prompt at the top.
    void clearScreen();
 
+   //show: show W1 W2 ... : display the word(s) followed by a newline
+   void showCommand(vector<string> args);
+
   //echo: echo <comment>: displays <comment> on the stdout follwed by a
   //   new line.
   void  echoCommand(char *  eCmd);

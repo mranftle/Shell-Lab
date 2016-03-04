@@ -3,6 +3,8 @@
 // Class responsible for simple internal commands:
 // 	clr
 // 	history
+//	show
+//	echo
 //
 //- - - - - - - - - - - - - - - - - - - - - -
 #include <locale>
@@ -49,6 +51,24 @@ void InternalCommands::clearScreen()
     //Tells terminal to clear the screen.
     putp(tigetstr("clear"));
 }
+
+/**
+ * showCommand(vector <string> args)
+ * 	show W1 W2 ...: display the word(s)
+ * 	followed by a newline
+ */
+ void InternalCommands::showCommand(vector<string> args)
+ {
+     vector<string>::iterator it = args.begin();
+     //start with second element
+     it++;
+     //iterate until end
+     for (; it != args.end(); ++it)
+     {
+     	cout << *it << endl;
+     }
+ }
+
 /**
  * echoCommand(vector <string> cmd)
  *	echo <comment>: display <comment> on the 
