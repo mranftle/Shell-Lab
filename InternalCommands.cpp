@@ -218,15 +218,13 @@ string getHistoryCommand(int n)
  * chdir(vector<string> args)
  * 	chdir W: change the current directory
  */
-void InternalCommands::chdirCommand(vector<string> args)
+int InternalCommands::chdirCommand(vector<string> args)
 {
 	if (args.size() != 2) {
 		cout << "usage: chdir W"<< endl;
+		return -2; //-2 for incorrect usage
 	}
 	else {
-		if (chdir(args.at(1)) != 0) {
-			cout << "error changing directory" << endl;
-			//TODO: throw error or have this method not be void,return non-0 value?
-		}
+		return (chdir(args.at(1))); //returns 0 for success, -1 for failure
 	}
 }
