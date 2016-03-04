@@ -99,6 +99,37 @@ void InternalCommands::historyCommand()
   
 }
 
+/*
+ * getHistoryCommand(int n)
+ * returns item n from history list
+ *
+ */
+
+string getHistoryCommand(int n)
+{
+	//variable
+	int index;
+	//if negative, get length - n 
+	if(index < 0)
+	{
+		index = historyList.length() + n;
+	}
+	//else just return nth element
+	else
+	{
+		index = n;
+	}
+	
+	if(index < historyList.length() && index >= 0)
+	{
+		return historyList.at(index);
+	}
+	else //else the numbers won't be correct, so return blank string
+	{
+		return "";
+	}
+}
+
 /**
  *  addCmdToHistory(char * cmd);
  * 	This function adds the most recent command to the historyList.

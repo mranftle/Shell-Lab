@@ -29,9 +29,7 @@ void xshLoop(void)
   BasicTasks bt;
   InternalCommands ic;
   char *line = NULL;
-  vector<string> args;
   int status;
-  char * preservedLine;
   
 
   do {
@@ -44,7 +42,35 @@ void xshLoop(void)
        cout<<"line is equal to NULL"<<endl;
       return;
      }
-      //Need a deep copy.
+
+	 status = HandleInput(line, &bt, &ic);
+	 //if -1, exit command was sent
+	 if(status == -1)
+	 {
+		 return;
+	 }
+
+     delete [] line ;
+     line = NULL;
+
+  } while (status);
+
+}
+
+/*
+ * HandleInput(char* line):
+ *   designed to handle the parsing of input line
+ *   this is created so that it can be recalled when the repeat command is issued
+ */
+
+int HandleInput(char* line, BasicTasks* bt, InternalCommands* ic)
+{
+	  //Variables for handling input
+      vector<string> args;
+	  char * preservedLine;
+	  int status;
+
+	  //Need a deep copy.
       preservedLine = new char[strlen(line) + 1];
       strcpy(preservedLine, line);
 
@@ -59,34 +85,63 @@ void xshLoop(void)
      }
      else if(args.at(0) =="exit")
      {
-        return;
+        return -1;
      }
      else if(args.at(0)=="clr")
      {
-       ic.clearScreen();
-
-     }else if(args.at(0) =="echo")
+         ic->clearScreen();
+         ic->addCmdToHistory(preservedLine);
+     }
+	 else if(args.at(0) =="echo")
      {
-       ic.echoCommand(preservedLine);
-     
-     }else if(args.at(0)=="show")
-       ic.showCommand(args);
+         ic->echoCommand(preservedLine);
+         ic->addCmdToHistory(preservedLine);
+     }
+	 else if(args.at(0)=="show")
      {
-     }else if(args.at(0) =="history")
+         ic->showCommand(args);
+         ic->addCmdToHistory(preservedLine);
+     }
+	 else if(args.at(0) =="history")
      {
-        ic.historyCommand();
+		 ic->historyCommand();
+         ic->addCmdToHistory(preservedLine);
      } 
 	 else if(args.at(0) =="export")
 	 {
-		 ic.exportCmd(preservedLine);
+		 ic->exportCmd(preservedLine);
+         ic->addCmdToHistory(preservedLine);
 	 }
 	 else if(args.at(0) =="unexport")
 	 {
-		 ic.unexportCmd(preservedLine);
+		 ic->unexportCmd(preservedLine);
+         ic->addCmdToHistory(preservedLine);
 	 }
 	 else if(args.at(0) =="environ")
 	 {
-		 ic.environCmd();
+		 ic->environCmd();
+         ic->addCmdToHistory(preservedLine);
+	 }
+	 else if(args.at(0) =="repeat")
+	 {
+		 int historyItem = -1;
+
+		 //get argument number if there are more than one argument
+		 if(args.length() >= 2)
+		 {
+			 historyItem = std::stoi(args.at(1));
+		 }
+		 //get history command, recall this function
+		 status = HandleInput(ic->getHistoryCommand(), bt, ic);
+         args.clear();
+
+		 //do not save repeat command to history list, this mimicks the bang command in linux
+
+		 //handle memory
+         delete [] preservedLine;
+         preservedLine = NULL;
+
+	     return status;
 	 }
      else
      {
@@ -97,18 +152,15 @@ void xshLoop(void)
 #endif
      }
 
-     ic.addCmdToHistory(preservedLine);
 
      status = bt.executeLine(args,ic);
      args.clear();
 
-     delete [] line ;
-     line = NULL;
+	 //handle memory
      delete [] preservedLine;
      preservedLine = NULL;
 
-  } while (status);
-
+	 return status;
 }
 
 /**
