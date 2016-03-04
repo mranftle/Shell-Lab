@@ -10,8 +10,9 @@
 
 using namespace std;
 void xshLoop();
-
+int HandleInput(char* line, BasicTasks* bt, InternalCommands* ic);
 bool ValidateCommandLine(int argc, char *argv[]);
+
 int main(int argc, char * argv[])
 {
 
@@ -58,7 +59,7 @@ void xshLoop(void)
 }
 
 /*
- * HandleInput(char* line):
+ * HandleInput():
  *   designed to handle the parsing of input line
  *   this is created so that it can be recalled when the repeat command is issued
  */
@@ -74,7 +75,7 @@ int HandleInput(char* line, BasicTasks* bt, InternalCommands* ic)
       preservedLine = new char[strlen(line) + 1];
       strcpy(preservedLine, line);
 
-     bt.parseLine(line,args);
+     bt->parseLine(line,args);
 
      if(args.empty())
      {
@@ -127,21 +128,21 @@ int HandleInput(char* line, BasicTasks* bt, InternalCommands* ic)
 		 int historyItem = -1;
 
 		 //get argument number if there are more than one argument
-		 if(args.length() >= 2)
+		 if(args.size() >= 2)
 		 {
-			 try
-			 {
-				 historyItem = std::stoi(args.at(1));
-			 }
-			 catch(Exception *e)
-			 {
-				 //if it failed, just roll with last command for repeating
-				 cout << "Unable to interpret argument. Repeating last command." << endl;
-				 historyItem = -1;
-			 }
+			// try
+			// {
+				 sscanf(args.at(1).c_str(), "%d", &historyItem);
+			// }
+			// catch(Exception *e)
+			// {
+			//	 //if it failed, just roll with last command for repeating
+			//	 cout << "Unable to interpret argument. Repeating last command." << endl;
+			//	 historyItem = -1;
+			// }
 		 }
 		 //get history command, recall this function
-		 status = HandleInput(ic->getHistoryCommand(historyItem), bt, ic);
+		 status = HandleInput((char *)ic->getHistoryCommand(historyItem).c_str(), bt, ic);
          args.clear();
 
 		 //do not save repeat command to history list, this mimicks the bang command in linux
@@ -162,7 +163,7 @@ int HandleInput(char* line, BasicTasks* bt, InternalCommands* ic)
      }
 
 
-     status = bt.executeLine(args,ic);
+     status = bt->executeLine(args,*ic);
      args.clear();
 
 	 //handle memory
