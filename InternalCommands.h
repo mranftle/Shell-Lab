@@ -49,8 +49,8 @@ class InternalCommands
   
   //environ: print out all set environment variables
   void environCmd();
-
-
+  
+  void chdirCommand(vector<string> args);
 
   private:
   vector <string> historyList;
