@@ -34,6 +34,8 @@ class InternalCommands
   // rmvlastCmd() removes the oldest command.
   
   void  historyCommand();
+  //Get command from history vector
+  string getHistoryCommand(int n);
   //Add the command to the history vector.
   void  addCmdToHistory(char * cmd);
 
