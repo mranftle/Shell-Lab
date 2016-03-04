@@ -49,8 +49,9 @@ class InternalCommands
   
   //environ: print out all set environment variables
   void environCmd();
-
-
+  
+  //chdir: change current directory to W
+  int chdirCommand(vector<string> args);
 
   private:
   vector <string> historyList;
