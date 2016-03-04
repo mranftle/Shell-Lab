@@ -129,10 +129,19 @@ int HandleInput(char* line, BasicTasks* bt, InternalCommands* ic)
 		 //get argument number if there are more than one argument
 		 if(args.length() >= 2)
 		 {
-			 historyItem = std::stoi(args.at(1));
+			 try
+			 {
+				 historyItem = std::stoi(args.at(1));
+			 }
+			 catch(Exception *e)
+			 {
+				 //if it failed, just roll with last command for repeating
+				 cout << "Unable to interpret argument. Repeating last command." << endl;
+				 historyItem = -1;
+			 }
 		 }
 		 //get history command, recall this function
-		 status = HandleInput(ic->getHistoryCommand(), bt, ic);
+		 status = HandleInput(ic->getHistoryCommand(historyItem), bt, ic);
          args.clear();
 
 		 //do not save repeat command to history list, this mimicks the bang command in linux
