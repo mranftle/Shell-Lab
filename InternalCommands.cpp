@@ -1,4 +1,3 @@
-//Test
 // InternalCommands.cpp
 //
 // Class responsible for simple internal commands:
