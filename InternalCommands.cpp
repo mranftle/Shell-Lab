@@ -213,7 +213,51 @@ string InternalCommands::getHistoryCommand(int n)
 		 cout << it->first << "=" << it->second << endl;
      }
  }
+/**
+ * setCmd(vector<string> args)
+ * set value of W1 ot W2
+ */
+//void InternalCommands::setCmd(<#vector<string> args#>){
+//}
 
+/**
+ * unsetCmd(vector<string> args)
+ * unset value W1
+ */
+//void InternalCommands::unsetCmd(vector<string> args){
+
+//}
+
+/** 
+ * pause: pause the shell until enter is pressed
+ */
+ void InternalCommands::pauseCmd(){
+     cout << "Shell Paused: Hit Enter to Continue" <<endl;
+     std::cin.ignore();
+ }
+/**
+ * wait: wait I
+ * wait for process I to complete 
+ */
+ void InternalCommands::waitCmd(){
+     
+ }
+ 
+/**
+ * exit: exit I 
+ * exit the shell and return status I, 0 if no I is given
+ */
+ void InternalCommands::exitCmd(vector<string> args){
+     if(args.size() < 2){
+         exit( 0 );
+     }
+     else{
+         // is I an integer? if so simply cast to int
+         
+         int exitCode = std::stoi(args.at(1));
+         exit( exitCode);
+     }
+ }
 /**
  * chdir(vector<string> args)
  * 	chdir W: change the current directory

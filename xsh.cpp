@@ -77,6 +77,8 @@ int HandleInput(char* line, BasicTasks* bt, InternalCommands* ic)
 
      bt->parseLine(line,args);
 
+    
+    //Perhaps this should be a switch statement
      if(args.empty())
      {
 #ifdef _VDEBUG
@@ -135,6 +137,18 @@ int HandleInput(char* line, BasicTasks* bt, InternalCommands* ic)
      else if(args.at(0)=="dir"){
         // ic->dirCmd();
         // ic->addCmdToHistory(preservedLine);
+     }
+     else if(args.at(0)=="pause"){
+         ic->pauseCmd();
+         ic->addCmdToHistory(preservedLine);
+     }
+     else if(args.at(0)=="wait"){
+         ic->waitCmd();
+         ic->addCmdToHistory(preservedLine);
+     }
+     else if(args.at(0)=="exit"){
+         ic->exitCmd(args);
+         ic->addCmdToHistory(preservedLine);
      }
 	 else if(args.at(0) =="repeat")
 	 {

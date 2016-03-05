@@ -59,7 +59,18 @@ class InternalCommands
     
   //chdir: change current directory to W
   int chdirCommand(vector<string> args);
-
+  
+  //pause: pauses the shell until the user presses "Enter"
+  void pauseCmd();
+  
+  //wait: wait I
+  // The shell waits for process I to complete
+  void waitCmd();
+  
+  //exit: exit I
+  // exit the shell and return status I, 0 if no I is given
+  void exitCmd(vector<string> args);
+    
   private:
   vector <string> historyList;
   map <string, string> environMap;
