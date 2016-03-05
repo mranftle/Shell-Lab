@@ -105,14 +105,14 @@ void InternalCommands::historyCommand()
  *
  */
 
-string getHistoryCommand(int n)
+string InternalCommands::getHistoryCommand(int n)
 {
 	//variable
 	int index;
 	//if negative, get length - n 
 	if(index < 0)
 	{
-		index = historyList.length() + n;
+		index = historyList.size() + n;
 	}
 	//else just return nth element
 	else
@@ -120,7 +120,7 @@ string getHistoryCommand(int n)
 		index = n;
 	}
 	
-	if(index < historyList.length() && index >= 0)
+	if(index < historyList.size() && index >= 0)
 	{
 		return historyList.at(index);
 	}

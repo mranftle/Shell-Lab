@@ -50,6 +50,13 @@ class InternalCommands
   //environ: print out all set environment variables
   void environCmd();
   
+  // set and unset methods
+  // set:set the value of the local variable W1 to the value W2
+  // unset: unset a previously set local variable W1
+  void setCmd(vector<string> args);
+    
+  void unsetCmd(vector<string>args);
+    
   //chdir: change current directory to W
   int chdirCommand(vector<string> args);
 
